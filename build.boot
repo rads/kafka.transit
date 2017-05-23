@@ -1,5 +1,5 @@
 (def project 'rads/kafka.transit)
-(def version "0.2.0-SNAPSHOT")
+(def version "0.2.0")
 
 (set-env!
   :source-paths #{"src"}
