@@ -5,13 +5,13 @@
     :implements [org.apache.kafka.common.serialization.Serde]
     :constructors {[] []}))
 
-(defn -serializer [this]
+(defn -serializer [_]
   (serializers/transit-serializer :msgpack))
 
-(defn -deserializer [this]
+(defn -deserializer [_]
   (deserializers/transit-deserializer :msgpack))
 
-(defn -configure [this])
+(defn -configure [_ _ _])
 
-(defn -close [this])
+(defn -close [_])
 
