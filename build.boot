@@ -19,6 +19,8 @@
                 "https://opensource.org/licenses/MIT"}}
  aot {:namespace #{'rads.kafka.transit.MsgpackMessageReader
                    'rads.kafka.transit.MsgpackMessageFormatter
+                   'rads.kafka.transit.MsgpackSerializer
+                   'rads.kafka.transit.MsgpackDeserializer
                    'rads.kafka.transit.MsgpackSerde}})
 
 (deftask build
