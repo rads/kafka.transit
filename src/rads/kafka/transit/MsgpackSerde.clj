@@ -1,15 +1,14 @@
 (ns rads.kafka.transit.MsgpackSerde
-  (:require [franzy.serialization.transit.serializers :as serializers]
-            [franzy.serialization.transit.deserializers :as deserializers])
+  (:import (rads.kafka.transit MsgpackSerializer MsgpackDeserializer))
   (:gen-class
     :implements [org.apache.kafka.common.serialization.Serde]
     :constructors {[] []}))
 
 (defn -serializer [_]
-  (serializers/transit-serializer :msgpack))
+  (MsgpackSerializer.))
 
 (defn -deserializer [_]
-  (deserializers/transit-deserializer :msgpack))
+  (MsgpackDeserializer.))
 
 (defn -configure [_ _ _])
 

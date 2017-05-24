@@ -7,8 +7,7 @@
   :dependencies
   '[[org.clojure/clojure "1.8.0"]
     [com.cognitect/transit-clj "0.8.300"]
-    [org.apache.kafka/kafka_2.11 "0.10.2.1" :exclusions [org.slf4j/slf4j-log4j12]]
-    [ymilky/franzy-transit "0.0.1"]])
+    [org.apache.kafka/kafka_2.11 "0.10.2.1" :exclusions [org.slf4j/slf4j-log4j12]]])
 
 (task-options!
  pom {:project project
