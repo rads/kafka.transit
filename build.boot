@@ -8,6 +8,7 @@
   '[[org.clojure/clojure "1.8.0"]
     [com.cognitect/transit-clj "0.8.300"]
     [org.apache.kafka/kafka_2.11 "0.10.2.1" :exclusions [org.slf4j/slf4j-log4j12]]
+    [org.apache.kafka/connect-api "0.10.2.1"]
     [ymilky/franzy-transit "0.0.1"]])
 
 (task-options!
@@ -22,7 +23,8 @@
                    'rads.kafka.transit.MsgpackMessageFormatter
                    'rads.kafka.transit.MsgpackSerializer
                    'rads.kafka.transit.MsgpackDeserializer
-                   'rads.kafka.transit.MsgpackSerde}})
+                   'rads.kafka.transit.MsgpackSerde
+                   'rads.kafka.transit.MsgpackConverter}})
 
 (deftask build
   "Build and install the project locally."
