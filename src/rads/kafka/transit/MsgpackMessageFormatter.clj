@@ -1,7 +1,7 @@
 (ns rads.kafka.transit.MsgpackMessageFormatter
   (:require
-    [cognitect.transit :as transit]
-    [clojure.java.io :as io])
+    [clojure.java.io :as io]
+    [rads.kafka.transit.util :as util])
   (:import
     (kafka.common MessageFormatter)
     (java.io PrintStream ByteArrayInputStream)
@@ -19,14 +19,9 @@
 (defn -init-state []
   [[] (atom {:props nil})])
 
-(defn read-transit [value]
-  (let [input-stream (ByteArrayInputStream. value)
-        reader (transit/reader input-stream :msgpack)]
-    (transit/read reader)))
-
 (defn -writeTo [this ^ConsumerRecord record ^PrintStream output]
   (when (.get (:props @(.state this)) "print.key")
-    (.print output (str (pr-str (read-transit (.key record))) " ")))
-  (.println output (pr-str (read-transit (.value record)))))
+    (.print output (str (pr-str (util/deserialize (.key record))) " ")))
+  (.println output (pr-str (util/deserialize (.value record)))))
 
-(defn -close [this])
+(defn -close [_])

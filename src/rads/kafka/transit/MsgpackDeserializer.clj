@@ -1,17 +1,14 @@
 (ns rads.kafka.transit.MsgpackDeserializer
-  (:require [cognitect.transit :as transit])
+  (:require [rads.kafka.transit.util :as util])
   (:import
-    (org.apache.kafka.common.serialization Deserializer)
-    (java.io ByteArrayInputStream))
+    (org.apache.kafka.common.serialization Deserializer))
   (:gen-class
     :implements [org.apache.kafka.common.serialization.Deserializer]
     :constructors {[] []}))
 
 (defn -configure [_ _ _])
 
-(defn -deserialize [this ^String topic ^bytes data]
-  (let [input-stream (ByteArrayInputStream. data)
-        reader (transit/reader input-stream :msgpack)]
-    (transit/read reader)))
+(defn -deserialize [_ _ ^bytes data]
+  (util/deserialize data))
 
 (defn -close [_])
