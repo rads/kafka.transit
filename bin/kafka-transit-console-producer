@@ -1,22 +1,12 @@
 #!/usr/bin/env bash
 
-get_script_dir() {
-  SOURCE="${BASH_SOURCE[0]}"
-  while [ -h "$SOURCE" ]; do
-    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-    SOURCE="$( readlink "$SOURCE" )"
-    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
-  done
-  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-  echo "$DIR"
-}
+set -e
 
-base_dir=$(get_script_dir)/..
-export CLASSPATH=$CLASSPATH:$base_dir/target/project.jar
-cd $base_dir
+mkdir -p $HOME/.kafka.transit
 
-if [ ! -f target/project.jar ]; then
-  boot uberjar
+if ! [ -f $HOME/.kafka.transit/project.jar ]; then
+  curl --silent -L -o $HOME/.kafka.transit/project.jar \
+    https://github.com/rads/kakfa.transit/releases/download/v0.3.0/project.jar
 fi
 
-kafka-console-producer --line-reader rads.kafka.transit.MsgpackMessageReader "$@"
+java -jar $HOME/.kafka.transit/project.jar producer "$@"

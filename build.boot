@@ -20,7 +20,8 @@
                 "https://opensource.org/licenses/MIT"}}
  aot {:namespace #{'rads.kafka.transit.MsgpackMessageReader
                    'rads.kafka.transit.MsgpackMessageFormatter
-                   'rads.kafka.transit.MsgpackSerde}})
+                   'rads.kafka.transit.MsgpackSerde
+                   'rads.kafka.transit.main}})
 
 (deftask build
   "Build and install the project locally."
@@ -36,6 +37,6 @@
   (comp
     (aot)
     (uber)
-    (jar :file "project.jar")
+    (jar :file "project.jar" :main 'rads.kafka.transit.main)
     (sift :include #{#"project.jar"})
     (target)))
