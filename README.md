@@ -20,7 +20,7 @@ Tools for using Transit with Kafka.
 To use the Transit serde, add this library as a dependency to your project:
 
 ```clojure
-[rads/kafka.transit "0.2.0"]
+[rads/kafka.transit "0.3.0"]
 ```
 
 ### Usage
