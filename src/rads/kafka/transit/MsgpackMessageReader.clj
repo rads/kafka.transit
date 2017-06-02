@@ -1,11 +1,11 @@
 (ns rads.kafka.transit.MsgpackMessageReader
   (:require
-    [cognitect.transit :as transit]
     [clojure.edn :as edn]
-    [clojure.java.io :as io])
+    [clojure.java.io :as io]
+    [rads.kafka.transit.util :as util])
   (:import
     (kafka.common MessageReader)
-    (java.io PushbackReader ByteArrayOutputStream InputStream)
+    (java.io PushbackReader InputStream)
     (org.apache.kafka.clients.producer ProducerRecord)
     (java.util Properties))
   (:gen-class
@@ -24,11 +24,8 @@
 
 (defn -readMessage [this]
   (let [{:keys [reader topic]} @(.state this)
-        output-stream (ByteArrayOutputStream.)]
-    (-> (transit/writer output-stream :msgpack)
-        (transit/write (edn/read reader)))
-    (let [value (.toByteArray output-stream)]
-      (ProducerRecord. topic value))))
+        value (util/serialize (edn/read reader))]
+      (ProducerRecord. topic value)))
 
 (defn -close [this]
   (let [{:keys [reader]} @(.state this)]
